@@ -67,22 +67,22 @@ class EditorViewmodel extends BaseViewModel {
             content: Text('Enter file name'),
           ),
         );
-      }
-
-      final file = await localFile(fileName);
-      if (await file.exists()) {
-        codeController.text = await file.readAsString();
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('File loaded'),
-          ),
-        );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('File not found'),
-          ),
-        );
+        final file = await localFile(fileName);
+        if (await file.exists()) {
+          codeController.text = await file.readAsString();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('File loaded'),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('File not found'),
+            ),
+          );
+        }
       }
     } catch (e) {
       print("HERE IS THE ERROR FROM LOAD FILE $e");
